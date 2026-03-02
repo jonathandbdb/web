@@ -260,17 +260,18 @@ ul { list-style: none; }
 
 .hero__bg-code {
   position: absolute;
-  right: -2rem;
+  right: 2rem;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0.06;
+  opacity: 0.12;
   font-family: var(--f-mono);
-  font-size: 1rem;
+  font-size: 1.15rem;
   color: var(--c-accent);
-  line-height: 1.8;
+  line-height: 2;
   pointer-events: none;
   user-select: none;
   white-space: pre;
+  z-index: 1;
 }
 
 .hero__content {
