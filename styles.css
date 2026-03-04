@@ -316,6 +316,78 @@ ul { list-style: none; }
   margin-bottom: 3rem;
 }
 
+.odoo-inline-help {
+  position: relative;
+  display: inline;
+  margin: 0 0.2rem;
+}
+
+.odoo-inline-trigger {
+  display: inline;
+  border: 0;
+  background: transparent;
+  color: var(--c-accent);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+
+.odoo-inline-trigger:hover {
+  color: var(--c-accent-hover);
+}
+
+.odoo-inline-popover {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 0;
+  width: min(24rem, 88vw);
+  max-width: 24rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.85rem;
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  font-size: 0.92rem;
+  line-height: 1.5;
+  z-index: 1200;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity var(--t-fast), transform var(--t-fast), visibility var(--t-fast);
+}
+
+.odoo-inline-help.is-open .odoo-inline-popover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .odoo-inline-help:hover .odoo-inline-popover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .odoo-inline-popover {
+    left: 50%;
+    transform: translate(-50%, 6px);
+  }
+  .odoo-inline-help.is-open .odoo-inline-popover {
+    transform: translate(-50%, 0);
+  }
+}
+
 .hero__proof {
   display: flex;
   gap: 2.5rem;

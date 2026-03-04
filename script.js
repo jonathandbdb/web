@@ -182,4 +182,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, 45000);
 
+  // ─── Inline helper popover on word “Odoo” ───
+  const odooInlineWrap = document.getElementById('odooInlineHelpWrap');
+  const odooInlineBtn = document.getElementById('odooInlineHelpBtn');
+  const odooInlinePopover = document.getElementById('odooInlineHelpPopover');
+
+  if (odooInlineWrap && odooInlineBtn && odooInlinePopover) {
+    const setOpen = (open) => {
+      odooInlineWrap.classList.toggle('is-open', open);
+      odooInlineBtn.setAttribute('aria-expanded', String(open));
+      odooInlinePopover.setAttribute('aria-hidden', String(!open));
+    };
+
+    odooInlineBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isOpen = odooInlineWrap.classList.contains('is-open');
+      setOpen(!isOpen);
+    });
+
+    odooInlinePopover.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!odooInlineWrap.contains(e.target)) {
+        setOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  }
+
 });
