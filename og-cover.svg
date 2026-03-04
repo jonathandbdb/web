@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">conecta - Implementación Odoo para PYMEs</title>
+  <desc id="desc">Tu negocio organizado en un solo sistema.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="90" y="250" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="800" fill="#ffffff">&lt;conecta/&gt;</text>
+  <text x="90" y="340" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="600" fill="#f97316">Implementación Odoo para PYMEs</text>
+  <text x="90" y="410" font-family="Inter, Arial, sans-serif" font-size="30" fill="#cbd5e1">Tu negocio organizado en un solo sistema.</text>
+  <circle cx="1060" cy="120" r="8" fill="#22c55e" />
+  <text x="1080" y="128" font-family="JetBrains Mono, monospace" font-size="18" fill="#86efac">status: online</text>
+</svg>
