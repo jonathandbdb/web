@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
-      
+
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
@@ -91,5 +91,95 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // ─── GA4 tracking helpers ───
+  const track = (eventName, params = {}) => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, params);
+    }
+  };
+
+  // 1) Conversion: generate_lead (CTA Agendar)
+  document.querySelectorAll('a[href="#contacto"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const txt = (link.textContent || '').trim().toLowerCase();
+      if (txt.includes('agendar') || txt.includes('consultoría') || txt.includes('consultoria')) {
+        track('generate_lead', {
+          event_category: 'conversion',
+          event_label: 'agendar_cta',
+          cta_text: (link.textContent || '').trim(),
+          section: link.closest('nav') ? 'navbar' : (link.closest('.hero') ? 'hero' : 'page')
+        });
+      }
+    });
+  });
+
+  // 2) Conversion: contact_email_click
+  document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', () => {
+      track('contact_email_click', {
+        event_category: 'conversion',
+        event_label: 'email_click',
+        email: (link.getAttribute('href') || '').replace('mailto:', ''),
+        section: link.closest('#contacto') ? 'contacto' : 'footer'
+      });
+    });
+  });
+
+  // 3) Conversion: contact_section_view (view of #contacto)
+  const contactSection = document.getElementById('contacto');
+  if (contactSection) {
+    const contactObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          track('contact_section_view', {
+            event_category: 'conversion',
+            event_label: 'contact_section_visible'
+          });
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    contactObserver.observe(contactSection);
+  }
+
+  // 4) Micro: scroll_75
+  let scrollTracked = false;
+  const onScrollDepth = () => {
+    if (scrollTracked) return;
+    const doc = document.documentElement;
+    const maxScroll = doc.scrollHeight - window.innerHeight;
+    if (maxScroll <= 0) return;
+    const pct = (window.scrollY / maxScroll) * 100;
+    if (pct >= 75) {
+      track('scroll_75', {
+        event_category: 'micro_conversion',
+        event_label: 'scroll_depth_75'
+      });
+      scrollTracked = true;
+      window.removeEventListener('scroll', onScrollDepth);
+    }
+  };
+  window.addEventListener('scroll', onScrollDepth, { passive: true });
+
+  // 5) Micro: cta_secondary_click ("Ver por qué somos diferentes")
+  document.querySelectorAll('a[href="#problema"]').forEach(link => {
+    link.addEventListener('click', () => {
+      track('cta_secondary_click', {
+        event_category: 'micro_conversion',
+        event_label: 'ver_por_que_somos_diferentes',
+        cta_text: (link.textContent || '').trim()
+      });
+    });
+  });
+
+  // 6) Micro: engaged_45s
+  setTimeout(() => {
+    track('engaged_45s', {
+      event_category: 'micro_conversion',
+      event_label: 'time_on_page_45s'
+    });
+  }, 45000);
 
 });
