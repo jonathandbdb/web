@@ -224,12 +224,12 @@ ul { list-style: none; }
   color: var(--c-text-white);
 }
 .brand-mark {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.48rem;
+  width: 2.45rem;
+  height: 2.45rem;
+  border-radius: 0.6rem;
   display: inline-block;
   object-fit: cover;
-  box-shadow: 0 2px 10px rgba(255, 122, 26, 0.35);
+  box-shadow: 0 2px 12px rgba(255, 122, 26, 0.35);
 }
 .logo-bracket { color: var(--c-accent); }
 
